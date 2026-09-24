@@ -36,9 +36,9 @@ all inside an 80×24 terminal.
 | 🚪 **Secret rooms** | A hidden *enchant room* is tucked into a random early level, reachable only through a blinking secret door (`?`) you have to find first. |
 | 🏆 **Treasure room** | Clear the fourth level's staircase and you drop into a hand-built final chamber — the run's payout. |
 | 👤 **Accounts & saves** | Sign-up with email/password validation, a random password generator, guest mode, and save/resume backed by binary `fwrite` snapshots of the entire game state. |
-| 🏅 **Global scoreboard** | Ranks every registered player by score, with medals, badges for the current user, and a "first game" timestamp. |
+| 🏅 **Scoreboard** | A ranked leaderboard view with medals, badges for the current user and a "first game" timestamp. Currently rendered from placeholder entries — wiring it to the on-disk user records is a Phase 2 task. |
 | 🎨 **Themes & difficulty** | Three player colors, three difficulty tiers that scale starting health, trap counts and trap damage. |
-| 🎵 **Soundtrack** | Two looping tracks via `SDL2_mixer`, toggleable in-game. |
+| 🎵 **Soundtrack** | Two looping tracks via `SDL2_mixer`, toggleable in-game. Shipped as a [release download](../../releases/latest) to keep the repository light. |
 | 🍖 **Survival systems** | Hunger drains over time, food rots in your pack (fresh → normal → corrupted), health regenerates only when you're fed and out of combat. |
 
 ## Gameplay
@@ -145,6 +145,17 @@ brew install ncurses sdl2 sdl2_mixer
 make
 ```
 
+### Soundtrack (optional)
+
+The two music tracks live in [Releases](../../releases/latest) rather than in
+the repository, so a clone stays under a megabyte. The game runs fine without
+them — the music menu simply tells you they're missing. To install:
+
+```bash
+curl -L -o assets/music1.mp3 https://github.com/nepticoo/rogue/releases/latest/download/music1.mp3
+curl -L -o assets/music2.mp3 https://github.com/nepticoo/rogue/releases/latest/download/music2.mp3
+```
+
 ### Play
 
 ```bash
@@ -166,9 +177,8 @@ make run
 │   ├── init_game.c       # Procedural generation: rooms, corridors, items, secrets
 │   └── play_game.c       # Game loop, rendering, input, inventory, survival systems
 ├── assets/
-│   ├── music1.mp3        # Soundtrack
-│   ├── music2.mp3
-│   └── emojies.txt       # Unicode escape reference for the in-game glyphs
+│   ├── emojies.txt       # Unicode escape reference for the in-game glyphs
+│   └── music*.mp3        # Soundtrack (downloaded from Releases, not tracked)
 ├── docs/                 # Course handout (not tracked)
 ├── Makefile
 └── LICENSE
@@ -196,7 +206,8 @@ This is **Phase 1** of a two-phase course project. The dungeon, generation,
 rendering, progression, items, survival systems, accounts and UI are complete.
 Enemy AI and combat resolution are stubbed for Phase 2 — `move_enemies()` is
 intentionally empty, and the enemy data structures are in place but not yet
-driven.
+driven. The scoreboard view is likewise complete but still reads placeholder
+entries instead of the per-user `.dat` files on disk.
 
 ## License
 

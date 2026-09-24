@@ -333,6 +333,18 @@ int music_menu() {
                 else
                     strcpy(path, "assets/music2.mp3");
                 Mix_Music *music = Mix_LoadMUS(path);
+                if(music == NULL) {
+                    // Soundtrack is distributed separately - see the README.
+                    Mix_CloseAudio();
+                    SDL_Quit();
+                    attron(A_DIM | A_UNDERLINE);
+                    mvprintw(LINES - 3, 4, "%s not found - see the README to install the soundtrack.", path);
+                    attroff(A_DIM | A_UNDERLINE);
+                    refresh();
+                    getch();
+                    user.music_stat = 0;
+                    return 0;
+                }
                 Mix_PlayMusic(music, -1);
                 user.music_stat = selected;
             }
@@ -529,7 +541,6 @@ int get_all_users_scoreboard(USER_S* all_users) {
 
 int scoreboard_menu() {
     clear();
-    mvprintw(0, 0, "heee");
     USER_S *all_users = (USER_S*)malloc(M * sizeof(USER_S));;
     int users_count = get_all_users_scoreboard(all_users);
     int lenght = 74;

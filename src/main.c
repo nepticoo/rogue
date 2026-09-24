@@ -135,7 +135,7 @@ int win_game() {
     if(!user.is_guest) {
         char path[2 * M] = "./users/";
         strcat(path, user.username);
-        strcat(path, "user_s.dat");
+        strcat(path, "/user_s.dat");
         FILE* user_s_file = fopen(path, "wb");
         fwrite(&user_s, sizeof(USER_S), 1, user_s_file);
         fclose(user_s_file);
