@@ -1,0 +1,22 @@
+# Build output
+rogue
+main
+*.o
+*.out
+*.exe
+
+# Runtime data (player accounts & save files)
+users/
+
+# Course handout — not part of the source
+docs/*.pdf
+
+# Soundtrack — distributed via GitHub Releases, not tracked here
+assets/*.mp3
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
